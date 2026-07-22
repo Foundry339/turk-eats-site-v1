@@ -19,10 +19,15 @@ function sortedRestaurants() {
 function cardHtml(restaurant, rank) {
   const gradient = posterGradient(restaurant.slug);
   const initials = initialsFor(restaurant.name);
+  const thumbnail =
+    restaurant.videoPlatform === "youtube" && restaurant.videoId
+      ? `<img class="poster-img" src="https://img.youtube.com/vi/${restaurant.videoId}/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()" />`
+      : "";
   return `
     <a class="card" href="restaurant.html?slug=${encodeURIComponent(restaurant.slug)}">
       <div class="poster" style="background:${gradient}">
         ${initials}
+        ${thumbnail}
       </div>
       <div class="card-body">
         <div class="card-name">${restaurant.name}</div>
