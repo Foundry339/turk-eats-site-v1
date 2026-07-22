@@ -28,7 +28,7 @@ function cardHtml(restaurant, rank) {
         <div class="card-name">${restaurant.name}</div>
         <div class="card-meta">${restaurant.cuisine}</div>
         <div class="card-meta">${restaurant.city}</div>
-        <div class="card-date">Visited ${formatDate(restaurant.dateVisited)}</div>
+        <div class="card-date">Posted ${formatDate(restaurant.dateVisited)}</div>
       </div>
     </a>
   `;
