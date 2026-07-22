@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TurkEats Directory — Every Restaurant TheAmericanTurk Has Visited</title>
+  <meta
+    name="description"
+    content="Unofficial, fan-made directory of every restaurant featured by TheAmericanTurk, with links and video visits."
+  />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      Turk<span class="accent">Eats</span>
+      <span class="brand-tag">unofficial fan directory</span>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="page-title">The Directory</h1>
+    <p class="page-subtitle">
+      Every restaurant TheAmericanTurk has featured, in one browsable list.
+    </p>
+
+    <div class="controls-row">
+      <div class="sort-group">
+        <button class="sort-btn active" data-sort="date">Recently Visited</button>
+        <button class="sort-btn" data-sort="alpha">A–Z</button>
+      </div>
+      <div class="result-count" id="result-count"></div>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer class="site-footer">
+    TurkEats is an unofficial, fan-made database and is not affiliated with,
+    endorsed by, or sponsored by TheAmericanTurk. Restaurant data on this
+    demo build is placeholder sample content.
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="common.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
