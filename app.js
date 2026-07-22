@@ -21,7 +21,6 @@ function cardHtml(restaurant, rank) {
   return `
     <a class="card" href="restaurant.html?slug=${encodeURIComponent(restaurant.slug)}">
       <div class="poster" style="background:${gradient}">
-        <span class="rank">#${rank}</span>
         ${initials}
       </div>
       <div class="card-body">
