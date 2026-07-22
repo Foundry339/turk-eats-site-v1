@@ -338,6 +338,7 @@ main {
 }
 
 .map-frame {
+  position: relative;
   width: 100%;
   min-height: 260px;
   border: 1px solid var(--border);
