@@ -4,6 +4,7 @@
  */
 
 let currentSort = "date"; // "date" | "alpha"
+let RESTAURANTS = [];
 
 function sortedRestaurants() {
   const list = [...RESTAURANTS];
@@ -42,7 +43,7 @@ function renderGrid() {
     grid.innerHTML = "";
     grid.insertAdjacentHTML(
       "afterend",
-      `<div class="empty-state">No restaurants yet. Add entries in data.js.</div>`
+      `<div class="empty-state">No restaurants yet. Add rows to the sheet.</div>`
     );
     countEl.textContent = "0 restaurants";
     return;
@@ -60,9 +61,20 @@ function setSort(sort) {
   renderGrid();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   document.querySelectorAll(".sort-btn").forEach((btn) => {
     btn.addEventListener("click", () => setSort(btn.dataset.sort));
   });
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = `<div class="empty-state">Loading directory…</div>`;
+
+  try {
+    RESTAURANTS = await loadRestaurants();
+  } catch (err) {
+    grid.innerHTML = `<div class="empty-state">Couldn't load the directory. Please refresh to try again.</div>`;
+    return;
+  }
+
   renderGrid();
 });

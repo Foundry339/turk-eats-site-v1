@@ -1,6 +1,7 @@
 /**
  * Restaurant detail page logic. Reads ?slug=... from the URL, looks
- * it up in RESTAURANTS (data.js), and fills in the page.
+ * it up in RESTAURANTS (loaded from the sheet via common.js), and
+ * fills in the page.
  */
 
 function videoSectionHtml(restaurant) {
@@ -11,9 +12,8 @@ function videoSectionHtml(restaurant) {
     return `
       <div class="${frameClass}">
         <div class="video-placeholder">
-          No video linked yet. Add a videoPlatform + videoId for
-          "${restaurant.slug}" in data.js to embed the TikTok, Instagram,
-          or YouTube visit here.
+          No video linked yet. Add a Video Link for "${restaurant.name}"
+          in the sheet to embed it here.
         </div>
       </div>
     `;
@@ -33,16 +33,14 @@ function videoSectionHtml(restaurant) {
 }
 
 function mapSectionHtml(restaurant) {
-  const hasCoords = typeof restaurant.lat === "number" && typeof restaurant.lon === "number";
-  const mapsLink = hasCoords
-    ? `https://www.google.com/maps/search/?api=1&query=${restaurant.lat},${restaurant.lon}`
-    : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        restaurant.address || restaurant.name
-      )}`;
+  const hasAddress = Boolean(restaurant.address);
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    restaurant.address || restaurant.name
+  )}`;
 
-  const mapFrame = hasCoords
-    ? `<div class="map-frame"><iframe src="${mapEmbedUrl(restaurant.lat, restaurant.lon)}" title="Map"></iframe></div>`
-    : `<div class="map-frame"><div class="video-placeholder">Add lat/lon in data.js to show a map.</div></div>`;
+  const mapFrame = hasAddress
+    ? `<div class="map-frame"><iframe src="${mapEmbedUrl(restaurant.address)}" title="Map"></iframe></div>`
+    : `<div class="map-frame"><div class="video-placeholder">Add an address in the sheet to show a map.</div></div>`;
 
   return `
     <div class="map-wrap">
@@ -58,16 +56,31 @@ function mapSectionHtml(restaurant) {
   `;
 }
 
-function render() {
+let RESTAURANTS = [];
+
+async function render() {
+  const app = document.getElementById("app");
+  app.innerHTML = `<div class="empty-state">Loading…</div>`;
+
+  try {
+    RESTAURANTS = await loadRestaurants();
+  } catch (err) {
+    app.innerHTML = `
+      <a class="back-link" href="index.html">← Back to directory</a>
+      <div class="empty-state">Couldn't load restaurant data. Please refresh to try again.</div>
+    `;
+    document.title = "TurkEats";
+    return;
+  }
+
   const slug = getSlugFromQuery();
   const restaurant = slug ? findRestaurant(slug) : null;
-  const app = document.getElementById("app");
 
   if (!restaurant) {
     app.innerHTML = `
       <a class="back-link" href="index.html">← Back to directory</a>
       <div class="empty-state">
-        Couldn't find that restaurant. It may have been removed from data.js.
+        Couldn't find that restaurant. It may have been removed from the sheet.
       </div>
     `;
     document.title = "Not found — TurkEats";
