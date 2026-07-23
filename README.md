@@ -1,4 +1,4 @@
-# TurkEats — Unofficial Restaurant Directory
+# AmericanTurkEats — Unofficial Restaurant Directory
 
 A static, no-build-tools website (plain HTML/CSS/JS) for browsing every
 restaurant a content creator has visited. Ships with 10 placeholder
@@ -58,7 +58,7 @@ to change.
 
 ## Branding
 
-Currently branded "TurkEats" with a placeholder "unofficial fan
+Currently branded "AmericanTurkEats" with a placeholder "unofficial fan
 directory" tag and a disclaimer footer. Swap the name in `index.html`
 and `restaurant.html` (`<div class="brand">` / `<a class="brand">`)
 and in the `<title>` tags whenever you're ready to finalize it.

@@ -69,7 +69,7 @@ async function render() {
       <a class="back-link" href="index.html">← Back to directory</a>
       <div class="empty-state">Couldn't load restaurant data. Please refresh to try again.</div>
     `;
-    document.title = "TurkEats";
+    document.title = "AmericanTurkEats";
     return;
   }
 
@@ -83,11 +83,11 @@ async function render() {
         Couldn't find that restaurant. It may have been removed from the sheet.
       </div>
     `;
-    document.title = "Not found — TurkEats";
+    document.title = "Not found — AmericanTurkEats";
     return;
   }
 
-  document.title = `${restaurant.name} — TurkEats`;
+  document.title = `${restaurant.name} — AmericanTurkEats`;
 
   app.innerHTML = `
     <a class="back-link" href="index.html">← Back to directory</a>
